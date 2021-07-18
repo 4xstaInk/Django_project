@@ -44,8 +44,8 @@ def tutor_detail(request, pk):
         return JsonResponse({'message': 'The tutor does not exist'}, status=status.HTTP_404_NOT_FOUND) 
  
     if request.method == 'GET': 
-        tutor_serializer = TutorSerializer(tutor) 
-        return JsonResponse(tutor_serializer.data) 
+        tutor_serializer = TutorSerializer(tutor)
+        return JsonResponse(tutor_serializer.data)
  
     elif request.method == 'PUT': 
         tutor_data = JSONParser().parse(request) 
