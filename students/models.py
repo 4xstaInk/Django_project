@@ -13,7 +13,7 @@ class Student(models.Model):
     fullname = models.CharField(max_length=70, blank=False, default='')
     email = models.CharField(max_length=70, blank=False, default='')
     sex = models.CharField(max_length=70, blank=False, default='')
-    field = models.ManyToManyField(to=Field, blank=True)
+    fields = models.ManyToManyField(to=Field, blank=True)
     student_id_number = models.CharField(max_length=70, blank=False, default='')
     year_enrolled = models.CharField(max_length=70, blank=False, default='')
     age = models.CharField(max_length=70, blank=False, default='')
