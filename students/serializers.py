@@ -1,10 +1,10 @@
-from rest_framework import serializers 
+from rest_framework import serializers
 from students.models import Student
-from tutors.serializers import TutorSerializer
- 
+
+
 class StudentSerializer(serializers.ModelSerializer):
-    
-    tutors = TutorSerializer(many=True, read_only = True)
+    tutors = serializers.SerializerMethodField()
+
     class Meta:
         model = Student
         fields = ('id',
@@ -18,5 +18,14 @@ class StudentSerializer(serializers.ModelSerializer):
                   'marital_status',
                   'nationality',
                   'description',
-                  'sex'
+                  'sex',
+                  'tutors'
                   )
+
+    def get_tutors(self, obj):
+        from tutors.serializers import SecondaryTutorSerializer
+        tutors = []
+        for field in obj.field.all():
+            temp = SecondaryTutorSerializer(field.tutor_set.all(), many=True).data
+            tutors.append(temp)
+        return tutors[0]
